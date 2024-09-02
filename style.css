@@ -1,0 +1,206 @@
+/* Estilos generales */
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #ffffff;
+    color: #333;
+  
+}
+
+/* Contenedor del logo */
+
+.logo-container {
+    width: 150px; /* Tamaño del contenedor del logo */
+    height: 150px; /* Tamaño del contenedor del logo */
+    display: flex;
+    justify-content: center; /* Centra el logo dentro del contenedor */
+    align-items: center; /* Centra el logo verticalmente */
+    margin-bottom: -20px; /* Espacio entre el logo y el título */
+
+}
+
+/* Contenedor principal */
+
+.container {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 10px; /* Añadido padding para mayor comodidad */
+}
+/* Título */
+h1 {
+    font-size: 24px; /* Tamaño del título */
+    margin-bottom: 15px;
+    color: #007BFF;
+}
+
+/* Barra de búsqueda */
+.search-bar {
+    display: flex;
+    flex-direction: column; /* Cambia la dirección de flex para móviles */
+    align-items: flex-start; /* Alinea los elementos de la barra de búsqueda a la izquierda */
+    margin-bottom: 15px;
+}
+
+/* Input de búsqueda */
+input[type="text"] {
+    padding: 12px;
+    width: 100%; /* Ocupa el 100% del ancho disponible */
+    max-width: 300px; /* Limita el ancho máximo para una mejor visualización */
+    border: 2px solid #007BFF;
+    border-radius: 4px;
+    font-size: 16px;
+    box-sizing: border-box; /* Asegura que el padding no afecte el ancho */
+    margin-bottom: 10px; /* Espacio entre el input y el botón */
+}
+
+/* Botón de búsqueda */
+button {
+    padding: 12px;
+    border: none;
+    background-color: #007BFF;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 100%; /* Ocupa el 100% del ancho disponible */
+    max-width: 300px; /* Limita el ancho máximo para una mejor visualización */
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Resultados de búsqueda */
+#results {
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start; /* Alinea las imágenes a la izquierda */
+}
+
+/* Imágenes */
+img {
+    width: 100%; /* Ocupa el 100% del ancho disponible */
+    max-width: 300px; /* Ajusta el ancho máximo de las imágenes */
+    height: auto;
+    margin: 10px;
+    border-radius: 8px;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+}
+
+/* Hover sobre las imágenes */
+img:hover {
+    transform: scale(1.05); /* Ajusta el tamaño del hover para las imágenes */
+}
+
+/* Estilo del modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 500;
+    padding-top: 60px;
+    left: 0; /* Ajusta el modal a la izquierda */
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* Contenido del modal */
+.modal-content {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 500px; /* Ajustado para pantallas móviles */
+}
+
+/* Animación de zoom */
+.modal-content, .close {
+    animation-name: zoom;
+    animation-duration: 0.6s;
+}
+
+@keyframes zoom {
+    from { transform: scale(0); }
+    to { transform: scale(1); }
+}
+
+/* Botón de cerrar modal */
+.close {
+    position: absolute;
+    top: 15px;
+    left: 15px; /* Alineado a la izquierda */
+    color: #fff;
+    font-size: 30px; /* Tamaño del botón de cerrar */
+    font-weight: bold;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+    color: #bbb;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Estilo del pie de página */
+footer {
+    margin-top: 20px;
+    font-size: 12px; /* Tamaño reducido para pantallas móviles */
+    color: #666;
+    text-align: left; /* Alinea el texto del pie de página a la izquierda */
+}
+
+footer a {
+    color: #007BFF;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+footer a:hover {
+    color: #0056b3;
+}
+
+/* Consultas de medios para pantallas más pequeñas */
+@media (max-width: 768px) {
+    .logo-container {
+        width: 120px; /* Tamaño reducido del contenedor del logo */
+        height: 120px; /* Tamaño reducido del contenedor del logo */
+    }
+
+    h1 {
+        font-size: 22px; /* Tamaño de fuente reducido */
+    }
+
+    .search-bar {
+        flex-direction: column;
+        align-items: flex-start; /* Alinea los elementos de la barra de búsqueda a la izquierda */
+    }
+
+    input[type="text"] {
+        width: 100%;
+        max-width: 280px; /* Tamaño reducido del input */
+    }
+
+    button {
+        width: 100%;
+        max-width: 280px; /* Tamaño reducido del botón */
+    }
+
+    img {
+        width: 100%;
+        max-width: 200px; /* Tamaño reducido de las imágenes */
+    }
+
+    .modal-content {
+        width: 90%;
+        max-width: 400px; /* Tamaño reducido del modal */
+    }
+
+    .close {
+        font-size: 25px; /* Tamaño reducido del botón de cerrar */
+    }
+}
