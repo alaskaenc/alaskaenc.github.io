@@ -3,34 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Buscador de Muestras</title>
+    <title>Buscador de Imágenes en GitHub</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="https://raw.githubusercontent.com/alaskaenc/codigos/main/ALASKA%20FASHION%20-%20PNG%202023%20NEGRO.png" type="image/png">
+    <meta name="description" content="Buscador de muestras de prendas de Alaska Fashion por códigos. Encuentra fácilmente las imágenes de las muestras utilizando este sencillo buscador.">
+    <meta name="keywords" content="buscador de imágenes, Alaska Fashion, muestras de prendas, búsqueda por códigos">
+    <meta name="author" content="@encinadenis">
 </head>
 <body>
-    <div class="container">
+    <div class="main-container">
         <div class="logo-container">
-            <img src="https://raw.githubusercontent.com/alaskaenc/codigos/main/ALASKA%20FASHION%20-%20PNG%202023%20NEGRO.png" alt="Logo" class="logo">
+            <img src="https://raw.githubusercontent.com/alaskaenc/codigos/main/ALASKA%20FASHION%20-%20PNG%202023%20NEGRO.png" alt="Logo de Alaska Fashion" class="logo">
         </div>
-    <div class="container">
-        <h1>Buscador de Muestras</h1>
-        <div class="search-bar">
-            <input type="text" id="searchInput" placeholder="Escribe para buscar imágenes...">
-            <button onclick="searchImages()">Buscar</button>
+        <div class="search-container">
+            <h1>Buscador de Muestras</h1>
+            <div class="search-bar">
+                <input type="text" id="searchInput" placeholder="Ingresa el código de la prenda...">
+                <button onclick="searchImages()">Buscar</button>
+            </div>
+            <div id="results"></div>
         </div>
-        <div id="results"></div>
-    </div>
 
-    <!-- Modal para agrandar la imagen -->
-    <div id="imageModal" class="modal">
-        <span class="close" onclick="closeModal()">&times;</span>
-        <img class="modal-content" id="modalImg">
-    </div>
+        <!-- Modal para agrandar la imagen -->
+        <div id="imageModal" class="modal">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <img class="modal-content" id="modalImg" alt="Vista ampliada de la imagen">
+        </div>
 
-    <!-- Pie de página -->
-    <footer>
-        <p>Creado por <a href="https://instagram.com/encinadenis" target="_blank">@encinadenis</a></p>
-    </footer>
+        <!-- Pie de página -->
+        <footer>
+            <p>Creado por <a href="https://instagram.com/encinadenis" target="_blank">@encinadenis</a></p>
+        </footer>
+    </div>
 
     <script src="script.js"></script>
 </body>
