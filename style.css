@@ -11,85 +11,86 @@ body {
     font-family: 'Roboto', sans-serif;
     background-color: var(--background-color);
     color: var(--text-color);
+    margin: 0;
+    padding: 0;
+}
+
+.main-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
 }
 
 .logo-container {
     width: 150px;
-    height: 150px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: -20px;
+    margin: 0 auto 20px;
 }
 
-.container {
-    background-color: var(--background-color);
-    border-radius: 10px;
-    padding: 10px;
+.logo {
+    width: 100%;
 }
 
-h1 {
-    font-size: 24px;
-    margin-bottom: 15px;
+h1, h2 {
+    text-align: center;
     color: var(--primary-color);
+}
+
+.search-container, .recent-container {
+    margin-bottom: 30px;
 }
 
 .search-bar {
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    margin-bottom: 15px;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px;
 }
 
 input[type="text"] {
-    padding: 12px;
+    padding: 10px;
     width: 100%;
     max-width: 300px;
     border: 2px solid var(--primary-color);
     border-radius: 4px;
     font-size: 16px;
     box-sizing: border-box;
-    margin-bottom: 10px;
 }
 
 button {
-    padding: 12px;
-    border: none;
+    padding: 10px;
     background-color: var(--primary-color);
     color: white;
+    border: none;
     border-radius: 4px;
     cursor: pointer;
     font-size: 16px;
-    width: 100%;
-    max-width: 300px;
-    transition: background-color var(--transition-speed) ease;
+    transition: background-color var(--transition-speed);
 }
 
 button:hover {
     background-color: var(--hover-color);
 }
 
-#results {
-    margin-top: 20px;
+#results, #recentImages {
     display: flex;
     flex-wrap: wrap;
-    justify-content: flex-start;
+    gap: 15px;
+    justify-content: center;
+    margin-top: 20px;
 }
 
 .image-container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 10px;
+    text-align: center;
+    max-width: 200px;
 }
 
 img {
     width: 100%;
-    max-width: 300px;
-    height: auto;
-    margin: 10px;
     border-radius: 8px;
-    transition: transform var(--transition-speed) ease;
+    transition: transform var(--transition-speed);
     cursor: pointer;
 }
 
@@ -97,17 +98,18 @@ img:hover {
     transform: scale(1.05);
 }
 
-.price {
-    font-size: 16px;
-    color: var(--text-color);
-    margin-top: 5px;
+.file-name {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #555;
+    margin-bottom: 8px;
+    word-break: break-word;
 }
 
 .modal {
     display: none;
     position: fixed;
     z-index: 500;
-    padding-top: 60px;
     left: 0;
     top: 0;
     width: 100%;
@@ -117,91 +119,23 @@ img:hover {
 }
 
 .modal-content {
-    margin: auto;
     display: block;
+    margin: auto;
     width: 80%;
     max-width: 500px;
 }
 
-.modal-content, .close {
-    animation-name: zoom;
-    animation-duration: 0.6s;
-}
-
-@keyframes zoom {
-    from { transform: scale(0); }
-    to { transform: scale(1); }
-}
-
 .close {
     position: absolute;
-    top: 15px;
-    left: 15px;
-    color: #fff;
+    top: 20px;
+    right: 30px;
+    color: white;
     font-size: 30px;
-    font-weight: bold;
-    transition: color var(--transition-speed);
     cursor: pointer;
 }
 
-.close:hover,
-.close:focus {
-    color: #bbb;
-}
-
 footer {
+    text-align: center;
     margin-top: 20px;
-    font-size: 12px;
     color: #666;
-    text-align: left;
-}
-
-footer a {
-    color: var(--primary-color);
-    text-decoration: none;
-    transition: color var(--transition-speed);
-}
-
-footer a:hover {
-    color: var(--hover-color);
-}
-
-@media (max-width: 768px) {
-    .logo-container {
-        width: 120px;
-        height: 120px;
-    }
-
-    h1 {
-        font-size: 22px;
-    }
-
-    .search-bar {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    input[type="text"] {
-        width: 100%;
-        max-width: 280px;
-    }
-
-    button {
-        width: 100%;
-        max-width: 280px;
-    }
-
-    img {
-        width: 100%;
-        max-width: 200px;
-    }
-
-    .modal-content {
-        width: 90%;
-        max-width: 400px;
-    }
-
-    .close {
-        font-size: 25px;
-    }
 }
