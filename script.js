@@ -1,3 +1,8 @@
+const repoOwner = 'alaskaenc';
+const repoName = 'codigos';
+const apiUrl = `https://api.github.com/repos/${repoOwner}/${repoName}/git/trees/main?recursive=1`;
+const pricesUrl = `https://raw.githubusercontent.com/${repoOwner}/${repoName}/main/prices.json`;
+
 async function searchImages() {
     const query = document.getElementById('searchInput').value.trim().toLowerCase();
     const resultsDiv = document.getElementById('results');
@@ -8,64 +13,88 @@ async function searchImages() {
         return;
     }
 
-    const repoOwner = 'alaskaenc';
-    const repoName = 'codigos';
-    const apiUrl = `https://api.github.com/repos/${repoOwner}/${repoName}/git/trees/main?recursive=1`;
-    const pricesUrl = `https://raw.githubusercontent.com/${repoOwner}/${repoName}/main/prices.json`;
-
     try {
-        // Realizar ambas peticiones simultáneamente
         const [response, pricesResponse] = await Promise.all([
             fetch(apiUrl),
             fetch(pricesUrl)
         ]);
 
-        // Verifica el estado de las respuestas
-        if (!response.ok) {
-            throw new Error(`Error al acceder a la API: ${response.statusText}`);
-        }
-        if (!pricesResponse.ok) {
-            throw new Error(`Error al acceder al archivo de precios: ${pricesResponse.statusText}`);
-        }
+        if (!response.ok || !pricesResponse.ok) throw new Error('No se pudo acceder a los datos.');
 
         const data = await response.json();
         const prices = await pricesResponse.json();
 
-        console.log('Datos de la API:', data);
-        console.log('Precios:', prices);
-
         const files = data.tree.filter(file =>
             file.path.toLowerCase().includes(query) &&
-            (file.path.endsWith('.jpg') || file.path.endsWith('.png') || file.path.endsWith('.gif'))
+            /\.(jpg|png|gif)$/i.test(file.path)
         );
 
-        if (files.length > 0) {
-            files.forEach(file => {
-                const imgUrl = `https://raw.githubusercontent.com/${repoOwner}/${repoName}/main/${file.path}`;
-                const imgElement = document.createElement('img');
-                imgElement.src = imgUrl;
-                imgElement.alt = file.path.split('/').pop();
-                imgElement.onclick = () => openModal(imgUrl);
-
-                const price = prices[file.path.split('/').pop()] || "Precio no disponible";
-                const priceElement = document.createElement('p');
-                priceElement.textContent = price;
-                priceElement.className = 'price';
-
-                const container = document.createElement('div');
-                container.className = 'image-container';
-                container.appendChild(imgElement);
-                container.appendChild(priceElement);
-
-                resultsDiv.appendChild(container);
-            });
-        } else {
+        if (files.length === 0) {
             resultsDiv.innerHTML = '<p>No se encontraron imágenes.</p>';
+            return;
         }
 
+        files.forEach(file => {
+            const imgUrl = `https://raw.githubusercontent.com/${repoOwner}/${repoName}/main/${file.path}`;
+            const imgElement = document.createElement('img');
+            imgElement.src = imgUrl;
+            imgElement.alt = file.path.split('/').pop();
+            imgElement.onclick = () => openModal(imgUrl);
+
+            const price = prices[file.path.split('/').pop()] || "Precio no disponible";
+            const priceElement = document.createElement('p');
+            priceElement.textContent = price;
+            priceElement.className = 'price';
+
+            const container = document.createElement('div');
+            container.className = 'image-container';
+            container.appendChild(imgElement);
+            container.appendChild(priceElement);
+
+            resultsDiv.appendChild(container);
+        });
     } catch (error) {
-        console.error('Error en searchImages:', error);
-        resultsDiv.innerHTML = `<p>Error al buscar imágenes. Por favor, intenta nuevamente. Detalles: ${error.message}</p>`;
+        console.error(error);
+        resultsDiv.innerHTML = '<p>Hubo un error al realizar la búsqueda.</p>';
+    }
+}
+
+async function fetchRecentImages() {
+    const recentDiv = document.getElementById('recentImages');
+    recentDiv.innerHTML = '';
+
+    try {
+        const response = await fetch(apiUrl);
+        if (!response.ok) throw new Error('No se pudo cargar las imágenes recientes.');
+
+        const data = await response.json();
+        const recentImages = data.tree
+            .filter(file => /\.(jpg|png|gif)$/i.test(file.path))
+            .slice(-50);
+
+        recentImages.forEach(file => {
+            const imgUrl = `https://raw.githubusercontent.com/${repoOwner}/${repoName}/main/${file.path}`;
+            const fileName = file.path.split('/').pop();
+
+            const imgElement = document.createElement('img');
+            imgElement.src = imgUrl;
+            imgElement.alt = fileName;
+            imgElement.onclick = () => openModal(imgUrl);
+
+            const nameElement = document.createElement('p');
+            nameElement.textContent = fileName;
+            nameElement.className = 'file-name';
+
+            const container = document.createElement('div');
+            container.className = 'image-container';
+            container.appendChild(nameElement);
+            container.appendChild(imgElement);
+
+            recentDiv.appendChild(container);
+        });
+    } catch (error) {
+        console.error(error);
+        recentDiv.innerHTML = '<p>Error al cargar imágenes recientes.</p>';
     }
 }
 
@@ -81,9 +110,4 @@ function closeModal() {
     modal.style.display = 'none';
 }
 
-document.getElementById('searchInput').addEventListener('keydown', function(event) {
-    if (event.key === 'Enter') {
-        event.preventDefault();
-        searchImages();
-    }
-});
+window.onload = fetchRecentImages;
