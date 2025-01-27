@@ -57,45 +57,7 @@ async function searchImages() {
         console.error(error);
         resultsDiv.innerHTML = '<p>Hubo un error al realizar la búsqueda.</p>';
     }
-}
 
-async function fetchRecentImages() {
-    const recentDiv = document.getElementById('recentImages');
-    recentDiv.innerHTML = '';
-
-    try {
-        const response = await fetch(apiUrl);
-        if (!response.ok) throw new Error('No se pudo cargar las imágenes recientes.');
-
-        const data = await response.json();
-        const recentImages = data.tree
-            .filter(file => /\.(jpg|png|gif)$/i.test(file.path))
-            .slice(-50);
-
-        recentImages.forEach(file => {
-            const imgUrl = `https://raw.githubusercontent.com/${repoOwner}/${repoName}/main/${file.path}`;
-            const fileName = file.path.split('/').pop();
-
-            const imgElement = document.createElement('img');
-            imgElement.src = imgUrl;
-            imgElement.alt = fileName;
-            imgElement.onclick = () => openModal(imgUrl);
-
-            const nameElement = document.createElement('p');
-            nameElement.textContent = fileName;
-            nameElement.className = 'file-name';
-
-            const container = document.createElement('div');
-            container.className = 'image-container';
-            container.appendChild(nameElement);
-            container.appendChild(imgElement);
-
-            recentDiv.appendChild(container);
-        });
-    } catch (error) {
-        console.error(error);
-        recentDiv.innerHTML = '<p>Error al cargar imágenes recientes.</p>';
-    }
 }
 
 function openModal(imgUrl) {
